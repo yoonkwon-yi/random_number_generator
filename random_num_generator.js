@@ -1,9 +1,28 @@
-function generate_ran_num() {
-    var number1 = document.getElementById("num1").value;
-    var number2 = document.getElementById("num2").value;
-    //   The Math.random() function returns a floating-point,
-    //  pseudo-random number in the range 0 to less than 1 (inclusive of 0, but not 1)
-    //  with approximately uniform distribution over that range
-    const ans = +Math.floor(Math.random() * (number2 - number1)) + +number1;
-    document.getElementById("answer").innerHTML = ans;
+const rollBtn = document.getElementById("roll-btn")
+const dicesCountEl = document.getElementById("dices-count");
+const sideSelectionEl = document.getElementById("sides");
+const rollsContainerEl = document.getElementById("rolls-container");
+rollBtn.addEventListener("click", roll) 
+
+function roll() {
+  resetRollsContainer();
+  const diceCount = dicesCountEl.value;
+  for (let idx=0; idx<diceCount; idx++) {
+    addRolledDice();
+  }
+}
+
+function resetRollsContainer() {
+  rollsContainerEl.innerHTML = "";
+}
+function addRolledDice() {
+  const rolledDiceEl = document.createElement("div");
+  rolledDiceEl.className = "roll";
+  rolledDiceEl.innerHTML = getRandomRollValue();
+  rollsContainerEl.appendChild(rolledDiceEl);
+}
+
+function getRandomRollValue() {
+  const sides = sideSelectionEl.value
+  return Math.floor(Math.random()* sides) + 1;
 }
